@@ -1,10 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.validateUserRequest = void 0;
-function validateUserRequest(req, res, next) {
-    const user = req.body;
-    if (!user || typeof user.username !== 'string' || typeof user.email !== 'string') {
-        res.status(400).json({ message: 'Invalid user data' });
+exports.validateIssueRequest = void 0;
+function validateIssueRequest(req, res, next) {
+    const issue = req.body;
+    if (!issue) {
+        res.status(400).json({ message: 'Itry' });
     }
 }
-exports.validateUserRequest = validateUserRequest;
+exports.validateIssueRequest = validateIssueRequest;
