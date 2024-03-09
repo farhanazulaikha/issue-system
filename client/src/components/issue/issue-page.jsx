@@ -13,6 +13,15 @@ function IssuePage() {
         description: ""
     })
 
+    const [errors, setErrors] = useState({
+        name: "default",
+        email: "default",
+        selectedCategory: "default",
+        selectedSubCategory: "default",
+        description: "default"
+    })
+    const [errorClass, setErrorClass] = useState("issue__field-error")
+
     const handleInput = (event) => { 
         const {id, value} = event.target;
 
@@ -24,14 +33,37 @@ function IssuePage() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        axios.post('http://localhost:3001/api/submit-issue', {
+
+        const numberField = ['name', 'email', 'description'];
+        let fieldArray = {
             name: issue.name,
             email: issue.email,
+            description: issue.description
+        };
+
+        for (let i = 0; i < numberField.length; i++) {
+            if (/^\d+$/.test(issue[numberField[i]])) {
+                fieldArray[numberField[i]] = Number(issue[numberField[i]]);
+            }
+        }       
+        axios.post('http://localhost:3001/api/submit-issue', {
+            name: fieldArray.name,
+            email: fieldArray.email,
             selectedCategory: issue.selectedCategory,
             selectedSubCategory: issue.selectedSubCategory,
-            description: issue.description
+            description: fieldArray.description
         }).then(res => {
-            console.log(res.data)
+            if (res.status === 200) {
+                let newError = {};
+                for (let i = 0; i < res.data.errors.length; i++) {
+                    newError[res.data.errors[i].param] = res.data.errors[i].msg;
+                }
+                setErrors(newError);
+                setErrorClass('issue__field-error-show')
+            }
+            else {
+                console.log(res.data.errors)
+            }     
         })
     }
 
@@ -57,10 +89,12 @@ function IssuePage() {
                 <div className="issue__field">
                     <label>Name</label>
                     <input placeholder="Enter your name here" value={issue['name']} onChange={handleInput} id="name"/>
+                    <div className={errorClass}>{errors['name']}</div>
                 </div>
                 <div className="issue__field">
                     <label>Email address</label>
                     <input placeholder="Enter your email here" value={issue['email']} onChange={handleInput} id="email"/>
+                    <div className={errorClass}>{errors['email']}</div>
                 </div>
                 <div className="issue__field">
                     <label>Category of issue</label>
@@ -70,17 +104,20 @@ function IssuePage() {
                         <option>Hostel</option> 
                         <option>Payment fees</option> 
                     </select>
+                    <div className={errorClass}>{errors['selectedCategory'] ? errors['selectedCategory'] : ''}</div>
                 </div>
                 <div className="issue__field">
                     <label>Subcategory of issue</label>
                     <select onChange={handleInput} value={issue['selectedSubCategory']} id="selectedSubCategory">
                         {options}
                     </select>
+                    <div className={errorClass}>{errors['selectedSubCategory']}</div>
                 </div>
                 <div className="issue__field">
                     <label>Description of issues</label>
                     <textarea placeholder="Enter your description of issues here" value={issue['description']} 
                     onChange={handleInput} id="description"></textarea>
+                    <div className={errorClass}>{errors['description']}</div>
                 </div>
                 <div className="issue__button">
                     <button type="submit">Submit</button>

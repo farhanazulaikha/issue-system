@@ -8,6 +8,7 @@
 .issue form {
 	border: 1px solid;
 	width: 700px;
+	max-height: 700px;
 }
 
 .issue h2 {
@@ -16,9 +17,8 @@
 
 .issue input, .issue textarea, .issue select {
 	width: 90%;
-	margin-bottom: 20px;
 	font-family: Arial, Helvetica, sans-serif;
-	padding: 15px;
+	padding: 10px;
 	-ms-box-sizing:content-box;
 	-moz-box-sizing:content-box;
 	-webkit-box-sizing:content-box; 
@@ -41,14 +41,23 @@
 	flex-direction: column;
 	justify-content: center;
 	margin-left: 30px;
+	margin-bottom: 25px;
 
 	&:first-child {
-		margin-top: 30px;
+		margin-top: 25px;
 	}
 
 	label {
 		margin-bottom: 10px;
 	}
+}
+
+.issue__field-error {
+	opacity: 0;
+}
+.issue__field-error-show {
+	color: red;
+	opacity: 1;
 }
 
 .issue__button {
