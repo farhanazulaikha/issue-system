@@ -23,8 +23,6 @@ function IssuePage() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-
-        console.log(issue)
     }
 
     let type = null; 
