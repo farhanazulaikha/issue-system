@@ -4,29 +4,37 @@ import { useState } from "react"
 
 function IssuePage() {
 
-    const [selectedCategory, setSelectedCategory] = useState("");
-    const [selectedSubCategory, setSelectedSubCategory] = useState("");
+    const [issue, setIssue] = useState({
+        name: "",
+        email: "",
+        selectedCategory: "",
+        selectedSubCategory: "",
+        description: ""
+    })
 
-    const changeSelectOptionHandler = (event) => { 
-        setSelectedCategory(event.target.value); 
-    };
+    const handleInput = (event) => { 
+        const {id, value} = event.target;
 
-    const changeSelectSubOptionHandler = (event) => { 
-        setSelectedSubCategory(event.target.value); 
+        setIssue(prevState => ({
+            ...prevState,
+            [id]: value
+        }))
     };
 
     const handleSubmit = (e) => {
-        e.preventDefault()
+        e.preventDefault();
+
+        console.log(issue)
     }
 
     let type = null; 
     let options = null; 
     
-    if (selectedCategory === "Course registration") { 
+    if (issue.selectedCategory === "Course registration") { 
       type = course; 
-    } else if (selectedCategory === "Hostel") { 
+    } else if (issue.selectedCategory === "Hostel") { 
       type = hostel; 
-    } else if (selectedCategory === "Payment fees") { 
+    } else if (issue.selectedCategory === "Payment fees") { 
       type = payment; 
     } 
     
@@ -40,16 +48,15 @@ function IssuePage() {
                 <h2>Submit your issue</h2>
                 <div className="issue__field">
                     <label>Name</label>
-                    <input placeholder="Enter your name here"/>
+                    <input placeholder="Enter your name here" value={issue['name']} onChange={handleInput} id="name"/>
                 </div>
                 <div className="issue__field">
                     <label>Email address</label>
-                    <input  placeholder="Enter your email here"/>
+                    <input placeholder="Enter your email here" value={issue['email']} onChange={handleInput} id="email"/>
                 </div>
                 <div className="issue__field">
                     <label>Category of issue</label>
-                    {/* select value={state} */}
-                    <select onChange={changeSelectOptionHandler} value={selectedCategory}>
+                    <select  onChange={handleInput} value={issue['selectedCategory']}  id="selectedCategory">
                         <option>Choose...</option> 
                         <option>Course registration</option> 
                         <option>Hostel</option> 
@@ -58,13 +65,14 @@ function IssuePage() {
                 </div>
                 <div className="issue__field">
                     <label>Subcategory of issue</label>
-                    <select  onChange={changeSelectSubOptionHandler} value={selectedSubCategory}>
+                    <select onChange={handleInput} value={issue['selectedSubCategory']} id="selectedSubCategory">
                         {options}
                     </select>
                 </div>
                 <div className="issue__field">
                     <label>Description of issues</label>
-                    <textarea placeholder="Enter your description of issues here"></textarea>
+                    <textarea placeholder="Enter your description of issues here" value={issue['description']} 
+                    onChange={handleInput} id="description"></textarea>
                 </div>
                 <div className="issue__button">
                     <button type="submit">Submit</button>
