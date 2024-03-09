@@ -1,0 +1,65 @@
+.issue {
+	height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.issue form {
+	border: 1px solid;
+	width: 700px;
+}
+
+.issue h2 {
+	margin-left: 30px;
+}
+
+.issue input, .issue textarea, .issue select {
+	width: 90%;
+	margin-bottom: 20px;
+	font-family: Arial, Helvetica, sans-serif;
+	padding: 15px;
+	-ms-box-sizing:content-box;
+	-moz-box-sizing:content-box;
+	-webkit-box-sizing:content-box; 
+	box-sizing:content-box;
+
+	&:focus {
+		outline: none;
+	}
+}
+
+.issue textarea {
+	resize: none;
+	&:focus {
+		outline: none;
+	}
+}
+
+.issue__field {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	margin-left: 30px;
+
+	&:first-child {
+		margin-top: 30px;
+	}
+
+	label {
+		margin-bottom: 10px;
+	}
+}
+
+.issue__button {
+	display: flex;
+	justify-content: center;
+	margin-bottom: 10px;
+
+	button {
+		cursor: pointer;
+		background-color: black;
+		color: white;
+		padding: 10px 25px;
+	}
+}
