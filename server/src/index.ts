@@ -2,6 +2,7 @@ import express from 'express';
 const app = express();
 const port = 3001;
 import issueRoute from './routes/issueRoute';
+import expressValidator from 'express-validator'
 
 app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
@@ -11,6 +12,8 @@ app.use(function (req, res, next) {
   });
 
 app.use(express.json());
+
+app.use(expressValidator());
 
 app.listen(port, () => {
     console.log(`Listening to port ${port}`)
