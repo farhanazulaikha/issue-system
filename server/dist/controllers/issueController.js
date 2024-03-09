@@ -3,6 +3,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.createIssue = void 0;
 const createIssue = (req, res, next) => {
     const issue = req.body;
-    res.status(201).json({ message: 'issue created successfully', issue });
+    res.status(200).json({ message: 'issue created successfullei', issue });
 };
 exports.createIssue = createIssue;

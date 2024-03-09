@@ -1,17 +1,19 @@
 import express from 'express';
 const app = express();
 const port = 3001;
-import issueRoutes from './routes/issueRoute';
+import issueRoute from './routes/issueRoute';
+
+app.use(function (req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+  });
 
 app.use(express.json());
-
-app.use(function(req, res, next) {
-    res.setHeader("Content-Type", "application/json");
-    next();
-});
 
 app.listen(port, () => {
     console.log(`Listening to port ${port}`)
 });
 
-app.use('/issue', issueRoutes);
+app.use('/api', issueRoute);

@@ -1,6 +1,7 @@
 import './issue-page.css'
 import { course, hostel, payment } from '../../data/data';
 import { useState } from "react"
+import axios from "axios"
 
 function IssuePage() {
 
@@ -23,6 +24,15 @@ function IssuePage() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        axios.post('http://localhost:3001/api/submit-issue', {
+            name: issue.name,
+            email: issue.email,
+            selectedCategory: issue.selectedCategory,
+            selectedSubCategory: issue.selectedSubCategory,
+            description: issue.description
+        }).then(res => {
+            console.log(res.data)
+        })
     }
 
     let type = null; 
