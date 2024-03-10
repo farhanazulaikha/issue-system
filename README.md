@@ -8,7 +8,7 @@ Steps to run the system:
 
 Steps to test in POSTMAN:
 
-1. While server is running, choose POST method and type this url: '[http://](http://localhost:3001/api/submit-issue)http://localhost:3001/issue/create-issue'
+1. While server is running, choose POST method and type this url: '[http://localhost:3001/api/submit-issue](http://localhost:3001/api/submit-issue)'
 2. In body, choose raw and paste this sample data to get successful response.
    {
      "name": "Ahmad bin Abu",
