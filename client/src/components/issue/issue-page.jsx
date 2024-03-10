@@ -45,25 +45,24 @@ function IssuePage() {
             if (/^\d+$/.test(issue[numberField[i]])) {
                 fieldArray[numberField[i]] = Number(issue[numberField[i]]);
             }
-        }       
+        }
+        
         axios.post('http://localhost:3001/api/submit-issue', {
-            name: fieldArray.name,
-            email: fieldArray.email,
-            selectedCategory: issue.selectedCategory,
-            selectedSubCategory: issue.selectedSubCategory,
-            description: fieldArray.description
+        name: fieldArray.name,
+        email: fieldArray.email,
+        selectedCategory: issue.selectedCategory,
+        selectedSubCategory: issue.selectedSubCategory,
+        description: fieldArray.description
         }).then(res => {
-            if (res.status === 200) {
-                let newError = {};
-                for (let i = 0; i < res.data.errors.length; i++) {
-                    newError[res.data.errors[i].param] = res.data.errors[i].msg;
-                }
-                setErrors(newError);
-                setErrorClass('issue__field-error-show')
+            
+        }).catch(err =>  {
+            let newError = {};
+            let errors = err.response.data.errors;
+            for (let i = 0; i < errors.length; i++) {
+                newError[errors[i].param] = errors[i].msg;
             }
-            else {
-                console.log(res.data.errors)
-            }     
+            setErrors(newError);
+            setErrorClass('issue__field-error-show')
         })
     }
 

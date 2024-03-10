@@ -8,7 +8,7 @@ export const createIssue: RequestHandler = (req, res, next) => {
     var errors = req.validationErrors();
 
     if (errors) {
-      res.json({errors})
+      res.status(400).json({errors})
     }
     else {
       res.status(200).json({message: 'issue submitted successfully', issue})
