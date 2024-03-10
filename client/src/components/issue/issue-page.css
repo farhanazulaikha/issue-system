@@ -58,6 +58,8 @@
 .issue__field-error-show {
 	color: red;
 	opacity: 1;
+	font-size: 13px;
+	margin-top: 5px;
 }
 
 .issue__button {
