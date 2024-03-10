@@ -2,6 +2,7 @@ import './issue-page.css'
 import { course, hostel, payment } from '../../data/data';
 import { useState } from "react"
 import axios from "axios"
+import Popup from '../popup/popup';
 
 function IssuePage() {
 
@@ -20,7 +21,8 @@ function IssuePage() {
         selectedSubCategory: "default",
         description: "default"
     })
-    const [errorClass, setErrorClass] = useState("issue__field-error")
+    const [errorClass, setErrorClass] = useState("issue__field-error");
+    const [modal, setModal] = useState(false);
 
     const handleInput = (event) => { 
         const {id, value} = event.target;
@@ -53,8 +55,8 @@ function IssuePage() {
         selectedCategory: issue.selectedCategory,
         selectedSubCategory: issue.selectedSubCategory,
         description: fieldArray.description
-        }).then(res => {
-            
+        }).then(() => {
+            setModal(!modal);   
         }).catch(err =>  {
             let newError = {};
             let errors = err.response.data.errors;
@@ -64,6 +66,10 @@ function IssuePage() {
             setErrors(newError);
             setErrorClass('issue__field-error-show')
         })
+    }
+
+    const closeModal = () => {
+        setModal(!modal)
     }
 
     let type = null; 
@@ -122,6 +128,7 @@ function IssuePage() {
                     <button type="submit">Submit</button>
                 </div>
             </form>
+            <Popup modal={modal} closeModal={closeModal}></Popup>
         </div>
     )
 }
