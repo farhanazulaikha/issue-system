@@ -15,5 +15,5 @@ Steps to test in POSTMAN:
      "email": "ahmad99@gmail.com",
      "selectedCategory": "Course registration",
      "selectedSubCategory": "Website problem",
-     "description": "I cannot access the website",
+     "description": "I cannot access the website"
    }
